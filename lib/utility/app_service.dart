@@ -230,7 +230,8 @@ class AppService {
     await FirebaseFirestore.instance
         .collection('user')
         .doc(user!.uid)
-        .collection('area').orderBy('timestamp',descending: true)
+        .collection('area')
+        .orderBy('timestamp', descending: true)
         .get()
         .then((value) {
       appController.areaModels.clear();
@@ -244,12 +245,28 @@ class AppService {
     });
   }
 
-  String convertTimeTostring({required Timestamp timestamp}){
-
+  String convertTimeTostring({required Timestamp timestamp}) {
     DateFormat dateFormat = DateFormat('dd/MM/yyyy HH:mm');
     String result = dateFormat.format(timestamp.toDate());
     return result;
-
   }
 
+  Future<AreaModel?> findQRcode({required String qrCode}) async {
+    AreaModel? areaModel;
+    var user = FirebaseAuth.instance.currentUser;
+    var respone = await FirebaseFirestore.instance
+        .collection('user')
+        .doc(user!.uid)
+        .collection('area')
+        .where('qrCode', isEqualTo: qrCode)
+        .get();
+
+
+        if (respone.docs.isNotEmpty) {
+          for (var element in respone.docs) {
+            areaModel =AreaModel.fromMap(element.data());
+          }
+          return areaModel;
+        }
+  }
 }

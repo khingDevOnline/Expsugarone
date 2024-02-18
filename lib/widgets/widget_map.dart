@@ -9,12 +9,12 @@ class WidgetMap extends StatefulWidget {
     Key? key,
     required this.lat,
     required this.lng,
-    required this.myLocationEnable,
+     this.myLocationEnable,
   }) : super(key: key);
 
   final double lat;
   final double lng;
-  final bool myLocationEnable;
+  final bool? myLocationEnable;
 
   @override
   State<WidgetMap> createState() => _WidgetMapState();
