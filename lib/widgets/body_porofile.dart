@@ -9,16 +9,16 @@ class BodyProfile extends StatefulWidget {
 
   @override
   State<BodyProfile> createState() => _BodyProfileState();
-
 }
 
 class _BodyProfileState extends State<BodyProfile> {
-
- AppController appController = Get.put(AppController());
- AppService appService = Get.put(AppService());
+  AppController appController = Get.put(AppController());
+  AppService appService = Get.put(AppService());
 
   @override
   Widget build(BuildContext context) {
-    return WidgetText(data:' appService.value.name');
+    return Obx(() => 
+    
+    WidgetText(data: ' appService.value.name'));
   }
 }

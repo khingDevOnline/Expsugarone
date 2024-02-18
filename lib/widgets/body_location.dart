@@ -6,6 +6,7 @@ import 'package:expsugarone/widgets/widget_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:getwidget/getwidget.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class BodyLocation extends StatefulWidget {
   const BodyLocation({super.key});
@@ -39,10 +40,27 @@ class _BodyLocationState extends State<BodyLocation> {
                     lng: appController.positions.last.longitude,
                     myLocationEnable: true,
                   ),
-                  Positioned( top: 26,left: 26,
+                  Positioned(
+                    top: 26,
+                    left: 26,
                     child: WidgetIconButton(
                       iconData: Icons.add_box,
-                      pressFunc: () {},
+                      pressFunc: () async {
+                        AppService().processFindLocation().then((value) {
+                          print(appController.positions.last.toString());
+
+                          MarkerId markerId =
+                              MarkerId('id${appController.mapMakers.length}');
+                          Marker marker = Marker(
+                              markerId: markerId,
+                              position: LatLng(
+                                appController.positions.last.latitude,
+                                appController.positions.last.longitude,
+                              ));
+
+                              appController.mapMakers[markerId]= marker;
+                        });
+                      },
                       size: GFSize.LARGE,
                       gfButtonType: GFButtonType.outline,
                     ),
