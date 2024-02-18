@@ -1,9 +1,11 @@
 import 'package:expsugarone/utility/app_controller.dart';
 import 'package:expsugarone/utility/app_service.dart';
+import 'package:expsugarone/widgets/widget_icon_button.dart';
 import 'package:expsugarone/widgets/widget_map.dart';
 import 'package:expsugarone/widgets/widget_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:getwidget/getwidget.dart';
 
 class BodyLocation extends StatefulWidget {
   const BodyLocation({super.key});
@@ -27,10 +29,26 @@ class _BodyLocationState extends State<BodyLocation> {
     return Obx(
       () => appController.positions.isEmpty
           ? const SizedBox()
-          : WidgetMap(
-              lat: appController.positions.last.latitude,
-              lng: appController.positions.last.longitude,
-              myLocationEnable: true,
+          : SizedBox(
+              width: Get.width,
+              height: Get.height,
+              child: Stack(
+                children: [
+                  WidgetMap(
+                    lat: appController.positions.last.latitude,
+                    lng: appController.positions.last.longitude,
+                    myLocationEnable: true,
+                  ),
+                  Positioned( top: 26,left: 26,
+                    child: WidgetIconButton(
+                      iconData: Icons.add_box,
+                      pressFunc: () {},
+                      size: GFSize.LARGE,
+                      gfButtonType: GFButtonType.outline,
+                    ),
+                  )
+                ],
+              ),
             ),
     );
   }
