@@ -1,8 +1,19 @@
+import 'package:expsugarone/utility/app_controller.dart';
 import 'package:expsugarone/widgets/widget_text.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-class BodyProfile extends StatelessWidget {
+class BodyProfile extends StatefulWidget {
   const BodyProfile({super.key});
+
+  @override
+  State<BodyProfile> createState() => _BodyProfileState();
+
+}
+
+class _BodyProfileState extends State<BodyProfile> {
+
+ AppController appController = Get.put(AppController());
 
   @override
   Widget build(BuildContext context) {
